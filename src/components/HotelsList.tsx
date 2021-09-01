@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { NavLink } from "react-router-dom";
 
 const HotelsList: React.FC = () => {
+  const [starRating, setStarRating] = useState(1)
   const { hotels, isLoading, error } = useTypedSelector(
     (state) => state.hotels
   );
@@ -11,7 +12,7 @@ const HotelsList: React.FC = () => {
 
   useEffect(() => {
     fetchHotels();
-  }, []);
+  }, [starRating]);
 
 
   if (isLoading) {
@@ -21,16 +22,36 @@ const HotelsList: React.FC = () => {
     return <h2>{error}</h2>;
   }
 
+  const add = () => {
+    if (starRating < 5) {
+      setStarRating(starRating + 1)
+    }
+  }
+
+  const decrement = () => {
+    if (starRating > 1) {
+      setStarRating(starRating - 1)
+    }
+  }
+
   return (
     <div>
+      <div>
+        <button onClick={add} >+</button>
+        {starRating}
+        <button onClick={decrement} >-</button>
+      </div>
       {hotels.map((hotel) => (
-        <div 
-        key={hotel.id}> <NavLink to={`/selected-hotel/${hotel.id}`} > 
+
+        Number(hotel.starRating)  >= starRating
+        ?
+        <div key={hotel.id}> 
+        <NavLink to={`/selected-hotel/${hotel.id}`} > 
         {hotel.name} </NavLink> 
-        {
-          hotel.images.map((image: any) =>  <p key={image.url} >{image.url}</p> )
-        }
+        <span>{hotel.starRating}</span> 
         </div>
+        :
+        null
       ))}
     </div>
   );
