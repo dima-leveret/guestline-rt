@@ -11,10 +11,12 @@ const HotelsList: React.FC = () => {
   const { fetchHotels } = useActions();
 
   const [starRating, setStarRating] = useState(1);
+  const [stars, setStars] = useState(starRating);
+  
 
   useEffect(() => {
     fetchHotels();
-  }, [starRating]);
+  }, [stars]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -23,29 +25,40 @@ const HotelsList: React.FC = () => {
     return <h2>{error}</h2>;
   }
 
-  const add = () => {
+  const addStar = () => {
     if (starRating < 5) {
       setStarRating((prevStarRaitng) => prevStarRaitng + 1);
     }
   };
 
-  const decrement = () => {
+  const removeStar = () => {
     if (starRating > 1) {
       setStarRating((prevStarRating) => prevStarRating - 1);
     }
   };
 
+  const searchHotel = () => {
+    setStars((prevStar) => prevStar = starRating )
+  }
+
+  const reset = () => {
+    setStarRating((prevStarRating) => prevStarRating = 1)
+    setStars((prevStar) => prevStar = 1)
+  }
+
   return (
     <div>
       <div>
         <span>STARS</span>
-        <button onClick={add}>+</button>
+        <button onClick={addStar}>+</button>
         {starRating}
-        <button onClick={decrement}>-</button>
+        <button onClick={removeStar}>-</button>
+        <button onClick={searchHotel} >SAERCH HOTEL</button>
+        <button onClick={reset} >RESET</button>
       </div>
       {hotels.map(
         (hotel) =>
-          Number(hotel.starRating) >= starRating && (
+          Number(hotel.starRating) >= stars && (
             <div key={hotel.id}>
               <NavLink to={`/selected-hotel/${hotel.id}`}>
                 <p>{hotel.name}</p>
