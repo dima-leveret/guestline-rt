@@ -12,7 +12,6 @@ const HotelsList: React.FC = () => {
 
   const [starRating, setStarRating] = useState(1);
   const [stars, setStars] = useState(starRating);
-  
 
   useEffect(() => {
     fetchHotels();
@@ -38,13 +37,13 @@ const HotelsList: React.FC = () => {
   };
 
   const searchHotel = () => {
-    setStars((prevStar) => prevStar = starRating )
-  }
+    setStars((prevStar) => (prevStar = starRating));
+  };
 
   const reset = () => {
-    setStarRating((prevStarRating) => prevStarRating = 1)
-    setStars((prevStar) => prevStar = 1)
-  }
+    setStarRating((prevStarRating) => (prevStarRating = 1));
+    setStars((prevStar) => (prevStar = 1));
+  };
 
   return (
     <div>
@@ -53,8 +52,8 @@ const HotelsList: React.FC = () => {
         <button onClick={addStar}>+</button>
         {starRating}
         <button onClick={removeStar}>-</button>
-        <button onClick={searchHotel} >SAERCH HOTEL</button>
-        <button onClick={reset} >RESET</button>
+        <button onClick={searchHotel}>SAERCH HOTEL</button>
+        <button onClick={reset}>RESET</button>
       </div>
       {hotels.map(
         (hotel) =>
