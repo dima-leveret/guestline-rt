@@ -49,10 +49,6 @@ const SelectedHotel: React.FC = () => {
     if (adults < maxValue) {
       setAdults((prevAdultnumber) => prevAdultnumber + 1);
     }
-    
-
-    console.log(maxValue);
-    
   };
 
   const removeAdult = () => {
@@ -74,8 +70,6 @@ const SelectedHotel: React.FC = () => {
     if (children < maxValue) {
       setChildren((prevAdultnumber) => prevAdultnumber + 1);
     }
-    console.log(maxValue);
-    
   };
 
   const removeChildren = () => {
