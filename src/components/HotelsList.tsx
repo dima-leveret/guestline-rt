@@ -3,6 +3,18 @@ import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { NavLink } from "react-router-dom";
 
+import "../style/HotelsList.css"
+
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import RemoveIcon from '@material-ui/icons/Remove';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
     (state) => state.hotels
@@ -46,15 +58,40 @@ const HotelsList: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
-        <span>STARS</span>
-        <button onClick={addStar}>+</button>
-        {starRating}
-        <button onClick={removeStar}>-</button>
-        <button onClick={searchHotel}>SAERCH HOTEL</button>
-        <button onClick={reset}>RESET</button>
-      </div>
+    <div className="cintainer" >
+      <Paper elevation={4} className="paper" >
+        <Typography display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
+
+        <div className="stars-container" >
+          <IconButton color="secondary" size='medium' onClick={removeStar}>
+            <RemoveIcon fontSize="medium" />
+          </IconButton>
+
+          <Rating readOnly value={starRating} />
+
+          <IconButton color="primary" size='medium' onClick={addStar}>
+            <AddIcon fontSize="medium" />
+          </IconButton>
+        </div>
+        
+        <Button 
+          color="primary" 
+          endIcon={<SearchIcon/>} 
+          variant="contained" 
+          onClick={searchHotel}
+          >
+            SAERCH HOTEL
+        </Button>
+        <Button
+          color="inherit"
+          endIcon={<RotateLeftIcon/>} 
+          variant="outlined" 
+          onClick={reset}
+          >
+            RESET
+        </Button>
+      </Paper>
+
       {hotels.map(
         (hotel) =>
           Number(hotel.starRating) >= stars && (
@@ -63,7 +100,7 @@ const HotelsList: React.FC = () => {
                 <p>{hotel.name}</p>
                 <p>{hotel.address1}</p>
               </NavLink>
-              <span>{hotel.starRating}</span>
+              <Rating readOnly value={Number(hotel.starRating)} />
               <div>
                 {hotel.images.map((image: any) => (
                   <img
