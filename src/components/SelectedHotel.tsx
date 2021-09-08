@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
+import Carousel from "./ui-components/Carousel";
+
 const SelectedHotel: React.FC = () => {
   const { hotelRoomsData, isLoading, error } = useTypedSelector(
     (state) => state.hotelRoomsData
@@ -127,14 +129,8 @@ const SelectedHotel: React.FC = () => {
                 ?
                 <h3>no images</h3>
                 :
-                room.images.map((image: any) => (
-                  <img
-                    style={{ width: "100px" }}
-                    key={image.url}
-                    src={image.url}
-                    alt="room-images"
-                  />
-                ))}
+                <Carousel images={room.images} />
+                }
               </div>
             </div>
           )
