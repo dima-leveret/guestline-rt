@@ -3,7 +3,11 @@ import { useHistory, useParams } from "react-router-dom";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
+import Placeholder from "../img/Placeholder.png"
 import Carousel from "./ui-components/Carousel";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import "../style/SelectedHotel.css"
 
 const SelectedHotel: React.FC = () => {
   const { hotelRoomsData, isLoading, error } = useTypedSelector(
@@ -30,7 +34,10 @@ const SelectedHotel: React.FC = () => {
   };
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <div >
+      <LinearProgress />
+      <LinearProgress color="secondary" />
+    </div>;
   }
   if (error) {
     return <h2>{error}</h2>;
@@ -127,7 +134,7 @@ const SelectedHotel: React.FC = () => {
               <div>
                 {room.images.length === 0
                 ?
-                <h3>no images</h3>
+                <img className="img-placeholder" src={Placeholder} alt="img-placeholder" />
                 :
                 <Carousel images={room.images} />
                 }

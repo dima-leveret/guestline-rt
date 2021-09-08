@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Carousel from "./ui-components/Carousel";
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
@@ -31,8 +32,12 @@ const HotelsList: React.FC = () => {
   }, [stars]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <div >
+      <LinearProgress />
+      <LinearProgress color="secondary" />
+  </div>;
   }
+
   if (error) {
     return <h2>{error}</h2>;
   }
@@ -60,7 +65,7 @@ const HotelsList: React.FC = () => {
 
   return (
     <div className="container" >
-      <Paper elevation={4} className="paper" >
+      <Paper elevation={5} className="filter" >
         <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
 
         <div className="stars-container" >
@@ -97,21 +102,30 @@ const HotelsList: React.FC = () => {
 
       {hotels.map((hotel) =>
           Number(hotel.starRating) >= stars && (
-            <div key={hotel.id}>
-              <NavLink to={`/selected-hotel/${hotel.id}`}>
-                <p>{hotel.name}</p>
-                <p>{hotel.address1}</p>
-              </NavLink>
-              <Rating readOnly value={Number(hotel.starRating)} />
-              <div>
+            <Paper elevation={4} className="hotel-container" key={hotel.id}>
+              <div className="hotel-header" >
+                <NavLink className="link" to={`/selected-hotel/${hotel.id}`}>
+                  <Typography display="block" variant="h4" >{hotel.name}</Typography>
+                </NavLink>
+                <Rating readOnly value={Number(hotel.starRating)} />
+              </div>
+              
+              <div className="hotel-content" >
                 {hotel.images.length === 0
                   ?
                   <h3>no images</h3>
                   :
                   <Carousel images = {hotel.images} />
                 }
+                <div>
+                  <Typography>{hotel.address1}</Typography>
+                  <Typography>{hotel.town}</Typography>
+                  <Typography>{hotel.country}</Typography>
+                  <Typography>{hotel.postcode}</Typography>
+                  <Typography>{hotel.telephone}</Typography>
+                </div>
               </div>
-            </div>
+            </Paper>
           )
       )}
     </div>

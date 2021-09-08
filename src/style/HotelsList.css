@@ -6,7 +6,7 @@
     height: auto;
 }
 
-.paper {
+.filter {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
@@ -26,4 +26,27 @@
     display: flex;
     justify-content: space-between;
     width: 280px;
+}
+
+.hotel-container {
+    width: 95%;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.hotel-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.hotel-content {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
 }
