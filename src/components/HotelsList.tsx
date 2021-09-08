@@ -16,6 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Carousel from "./ui-components/Carousel";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Placeholder from "../img/Placeholder.png"
 
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
@@ -30,13 +31,6 @@ const HotelsList: React.FC = () => {
   useEffect(() => {
     fetchHotels();
   }, [stars]);
-
-  if (isLoading) {
-    return <div >
-      <LinearProgress />
-      <LinearProgress color="secondary" />
-  </div>;
-  }
 
   if (error) {
     return <h2>{error}</h2>;
@@ -65,6 +59,8 @@ const HotelsList: React.FC = () => {
 
   return (
     <div className="container" >
+      {isLoading &&  <LinearProgress /> }
+      
       <Paper elevation={5} className="filter" >
         <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
 
@@ -101,7 +97,7 @@ const HotelsList: React.FC = () => {
       </Paper>
 
       {hotels.map((hotel) =>
-          Number(hotel.starRating) >= stars && (
+          +hotel.starRating >= stars && (
             <Paper elevation={4} className="hotel-container" key={hotel.id}>
               <div className="hotel-header" >
                 <NavLink className="link" to={`/selected-hotel/${hotel.id}`}>
@@ -113,16 +109,23 @@ const HotelsList: React.FC = () => {
               <div className="hotel-content" >
                 {hotel.images.length === 0
                   ?
-                  <h3>no images</h3>
+                  <img className="img-placeholder" src={Placeholder} alt="img-placeholder" />
                   :
                   <Carousel images = {hotel.images} />
                 }
-                <div>
-                  <Typography>{hotel.address1}</Typography>
-                  <Typography>{hotel.town}</Typography>
-                  <Typography>{hotel.country}</Typography>
-                  <Typography>{hotel.postcode}</Typography>
-                  <Typography>{hotel.telephone}</Typography>
+                <div className="hotel-info" >
+                  <div className="hotel-description" >
+                    <Typography paragraph variant="h5" >About hotel:</Typography>
+                    <Typography variant="body1" >{hotel.description}</Typography>
+                  </div>
+                  <div className="hotel-contacts" >
+                    <Typography paragraph variant="button" >Contacts:</Typography>
+                    <Typography variant="body2" >{hotel.address1}</Typography>
+                    <Typography variant="body2" >{hotel.town}</Typography>
+                    <Typography variant="body2" >{hotel.country}</Typography>
+                    <Typography variant="body2" >{hotel.postcode}</Typography>
+                    <Typography variant="body2" >{hotel.telephone}</Typography>
+                  </div>
                 </div>
               </div>
             </Paper>

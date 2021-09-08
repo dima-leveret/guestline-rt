@@ -123,7 +123,7 @@ const SelectedHotel: React.FC = () => {
       </div>
 
       {hotelRoomsData.map(
-        (room: any) =>
+        (room: any ) =>
           room.occupancy.maxAdults >= adultsValue &&
           room.occupancy.maxChildren >= childrenValue && (
             <div key={room.id}>

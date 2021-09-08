@@ -5,8 +5,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { BrowserRouter } from "react-router-dom";
 
-import "./style/App.css"
-
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>

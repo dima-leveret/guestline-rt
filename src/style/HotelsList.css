@@ -9,7 +9,7 @@
 .filter {
     display: flex;
     align-items: center;
-    margin-bottom: 30px;
+    margin: 10px 10px 30px 10px;
     padding: 10px;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -31,7 +31,7 @@
 .hotel-container {
     width: 95%;
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .link {
@@ -43,10 +43,29 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
 .hotel-content {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.hotel-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hotel-contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 15px;
 }
