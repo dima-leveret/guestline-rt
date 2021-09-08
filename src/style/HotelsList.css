@@ -1,8 +1,9 @@
-.cintainer {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: auto;
 }
 
 .paper {
@@ -19,4 +20,10 @@
 .stars-container {
     display: flex;
     align-items: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    width: 280px;
 }

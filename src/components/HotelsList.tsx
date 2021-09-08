@@ -14,6 +14,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import Carousel from "./ui-components/Carousel";
 
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
@@ -58,9 +59,9 @@ const HotelsList: React.FC = () => {
   };
 
   return (
-    <div className="cintainer" >
+    <div className="container" >
       <Paper elevation={4} className="paper" >
-        <Typography display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
+        <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
 
         <div className="stars-container" >
           <IconButton color="secondary" size='medium' onClick={removeStar}>
@@ -74,26 +75,27 @@ const HotelsList: React.FC = () => {
           </IconButton>
         </div>
         
-        <Button 
-          color="primary" 
-          endIcon={<SearchIcon/>} 
-          variant="contained" 
-          onClick={searchHotel}
-          >
-            SAERCH HOTEL
-        </Button>
-        <Button
-          color="inherit"
-          endIcon={<RotateLeftIcon/>} 
-          variant="outlined" 
-          onClick={reset}
-          >
-            RESET
-        </Button>
+        <div className="btn-container">
+          <Button 
+            color="primary" 
+            endIcon={<SearchIcon/>} 
+            variant="contained" 
+            onClick={searchHotel}
+            >
+              SAERCH HOTEL
+          </Button>
+          <Button
+            color="inherit"
+            endIcon={<RotateLeftIcon/>} 
+            variant="outlined" 
+            onClick={reset}
+            >
+              RESET
+          </Button>
+        </div>
       </Paper>
 
-      {hotels.map(
-        (hotel) =>
+      {hotels.map((hotel) =>
           Number(hotel.starRating) >= stars && (
             <div key={hotel.id}>
               <NavLink to={`/selected-hotel/${hotel.id}`}>
@@ -102,14 +104,12 @@ const HotelsList: React.FC = () => {
               </NavLink>
               <Rating readOnly value={Number(hotel.starRating)} />
               <div>
-                {hotel.images.map((image: any) => (
-                  <img
-                    style={{ width: "100px" }}
-                    key={image.url}
-                    src={image.url}
-                    alt="hotel-img"
-                  />
-                ))}
+                {hotel.images.length === 0
+                  ?
+                  <h3>no images</h3>
+                  :
+                  <Carousel images = {hotel.images} />
+                }
               </div>
             </div>
           )
