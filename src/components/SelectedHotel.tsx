@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
@@ -6,6 +6,12 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import Placeholder from "../img/Placeholder.png"
 import Carousel from "./ui-components/Carousel";
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 import "../style/SelectedHotel.css"
 
@@ -100,27 +106,40 @@ const SelectedHotel: React.FC = () => {
   };
 
   return (
-    <div>
-      <button onClick={goBack}>Back to main</button>
+    <div className="container" >
+      <Button 
+        variant="contained" 
+        color="default" 
+        className="btn-back" 
+        startIcon={<HomeIcon/>} 
+        onClick={goBack}>Back to main</Button>
 
-      <div>
+      <Paper elevation={5} className="filter" >
         <div>
           <span>Adults</span>
-          <button onClick={addAdult}>+</button>
+          <IconButton onClick={removeAdult}>
+            <RemoveCircleOutlineIcon />
+          </IconButton>
           {adults}
-          <button onClick={removeAdult}>-</button>
+          <IconButton onClick={addAdult} >
+            <AddCircleOutlineIcon />
+          </IconButton>
         </div>
 
         <div>
           <span>Children</span>
-          <button onClick={addChildren}>+</button>
+          <IconButton onClick={removeChildren}>
+            <RemoveCircleOutlineIcon />
+          </IconButton>
           {children}
-          <button onClick={removeChildren}>-</button>
+          <IconButton onClick={addChildren}>
+            <AddCircleOutlineIcon />
+          </IconButton>
         </div>
 
         <button onClick={searchRoom}>SAERCH ROOM</button>
         <button onClick={reset}>RESET</button>
-      </div>
+      </Paper>
 
       {hotelRoomsData.map(
         (room: any ) =>

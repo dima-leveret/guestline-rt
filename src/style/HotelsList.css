@@ -39,6 +39,10 @@
     color: black;
 }
 
+.link:hover {
+    color: grey;
+}
+
 .hotel-header {
     display: flex;
     width: 100%;

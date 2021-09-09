@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { NavLink } from "react-router-dom";
@@ -16,6 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 import Carousel from "./ui-components/Carousel";
 import LinearProgress from '@material-ui/core/LinearProgress';
+
 import Placeholder from "../img/Placeholder.png"
 
 const HotelsList: React.FC = () => {
@@ -115,7 +116,7 @@ const HotelsList: React.FC = () => {
                 }
                 <div className="hotel-info" >
                   <div className="hotel-description" >
-                    <Typography paragraph variant="h5" >About hotel:</Typography>
+                    <Typography paragraph variant="h5" >ABOUT HOTEL:</Typography>
                     <Typography variant="body1" >{hotel.description}</Typography>
                   </div>
                   <div className="hotel-contacts" >
