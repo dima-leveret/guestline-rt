@@ -22,10 +22,10 @@
     align-items: center;
 }
 
-.btn-container {
+.hotels-btn-container {
     display: flex;
     justify-content: space-between;
-    width: 280px;
+    width: 250px;
 }
 
 .hotel-container {
@@ -56,7 +56,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-top: 10px;
     flex-wrap: wrap;
 }
 
@@ -72,4 +71,15 @@
     flex-direction: column;
     align-items: flex-end;
     margin-top: 15px;
+}
+
+@media only screen and (max-width: 880px) {
+    .hotel-content {
+        justify-content: center;
+    }
+
+    .hotel-info {
+        width: 100%;
+        margin-top: 15px;
+    }
 }

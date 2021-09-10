@@ -77,16 +77,18 @@ const HotelsList: React.FC = () => {
           </IconButton>
         </div>
         
-        <div className="btn-container">
+        <div className="hotels-btn-container">
           <Button 
+            size="small"
             color="primary" 
             endIcon={<SearchIcon/>} 
             variant="contained" 
             onClick={searchHotel}
             >
-              SAERCH HOTEL
+              FILTER HOTELS
           </Button>
           <Button
+            size="small"
             color="inherit"
             endIcon={<RotateLeftIcon/>} 
             variant="outlined" 
@@ -99,10 +101,10 @@ const HotelsList: React.FC = () => {
 
       {hotels.map((hotel) =>
           +hotel.starRating >= stars && (
-            <Paper elevation={4} className="hotel-container" key={hotel.id}>
+            <Paper elevation={7} className="hotel-container" key={hotel.id}>
               <div className="hotel-header" >
                 <NavLink className="link" to={`/selected-hotel/${hotel.id}`}>
-                  <Typography display="block" variant="h4" >{hotel.name}</Typography>
+                  <Typography display="block" variant="h5" >{hotel.name}</Typography>
                 </NavLink>
                 <Rating readOnly value={Number(hotel.starRating)} />
               </div>
@@ -114,9 +116,10 @@ const HotelsList: React.FC = () => {
                   :
                   <Carousel images = {hotel.images} />
                 }
+
                 <div className="hotel-info" >
                   <div className="hotel-description" >
-                    <Typography paragraph variant="h5" >ABOUT HOTEL:</Typography>
+                    <Typography paragraph variant="h6" >ABOUT HOTEL:</Typography>
                     <Typography variant="body1" >{hotel.description}</Typography>
                   </div>
                   <div className="hotel-contacts" >
