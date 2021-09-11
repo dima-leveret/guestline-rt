@@ -4,7 +4,7 @@ To build the project locally you need:
 
 Instruction:
 
-1. Clone the repository to your computer:
+- Clone the repository to your computer:
     open the terminal and paste/write the command below
 {
     git clone https://github.com/dima-leveret/guestline-rt
