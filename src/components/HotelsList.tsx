@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
-import { NavLink } from "react-router-dom";
 
 import "../style/HotelsList.css"
 
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Rating from '@material-ui/lab/Rating';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import RemoveIcon from '@material-ui/icons/Remove';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import RotateLeftIcon from '@material-ui/icons/RotateLeft';
-import Carousel from "./ui-components/Carousel";
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-import Placeholder from "../img/Placeholder.png"
+import SingleHotel from "./SingleHotel";
 
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
@@ -37,17 +32,9 @@ const HotelsList: React.FC = () => {
     return <h2>{error}</h2>;
   }
 
-  const addStar = () => {
-    if (starRating < 5) {
-      setStarRating((prevStarRaitng) => prevStarRaitng + 1);
-    }
-  };
-
-  const removeStar = () => {
-    if (starRating > 1) {
-      setStarRating((prevStarRating) => prevStarRating - 1);
-    }
-  };
+  const handleOnStarRaitingChange = (newValue: any) => {
+    setStarRating((prevValue) => prevValue = newValue)
+  }
 
   const searchHotel = () => {
     setStars((prevStar) => (prevStar = starRating));
@@ -59,7 +46,7 @@ const HotelsList: React.FC = () => {
   };
 
   return (
-    <div className="container" >
+    <div className="hotels-container" >
       {isLoading &&  <LinearProgress /> }
 
       <div className="hotels-poster-container" > 
@@ -69,16 +56,12 @@ const HotelsList: React.FC = () => {
       <Paper elevation={5} className="hotels-filter" >
         <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
 
-        <div className="stars-container" >
-          <IconButton color="secondary" size='medium' onClick={removeStar}>
-            <RemoveIcon fontSize="medium" />
-          </IconButton>
-
-          <Rating readOnly value={starRating} />
-
-          <IconButton color="primary" size='medium' onClick={addStar}>
-            <AddIcon fontSize="medium" />
-          </IconButton>
+        <div className="hotels-stars-container" >
+          <Rating 
+            name="star-raiting"
+            onChange={(event, newValue) => handleOnStarRaitingChange(newValue)}
+            value={starRating} 
+          />
         </div>
         
         <div className="hotels-btn-container">
@@ -104,40 +87,7 @@ const HotelsList: React.FC = () => {
       </Paper>
 
       {hotels.map((hotel) =>
-          +hotel.starRating >= stars && (
-            <Paper elevation={7} className="hotel-container" key={hotel.id}>
-              <div className="hotel-header" >
-                <NavLink className="link" to={`/selected-hotel/${hotel.name}/${hotel.id}`}>
-                  <Typography display="block" variant="h5" >{hotel.name}</Typography>
-                </NavLink>
-                <Rating readOnly value={Number(hotel.starRating)} />
-              </div>
-              
-              <div className="hotel-content" >
-                {hotel.images.length === 0
-                  ?
-                  <img className="img-placeholder" src={Placeholder} alt="img-placeholder" />
-                  :
-                  <Carousel images = {hotel.images} />
-                }
-
-                <div className="hotel-info" >
-                  <div className="hotel-description" >
-                    <Typography paragraph variant="h6" >ABOUT HOTEL:</Typography>
-                    <Typography variant="body1" >{hotel.description}</Typography>
-                  </div>
-                  <div className="hotel-contacts" >
-                    <Typography paragraph variant="button" >Contacts:</Typography>
-                    <Typography variant="body2" >{hotel.address1}</Typography>
-                    <Typography variant="body2" >{hotel.town}</Typography>
-                    <Typography variant="body2" >{hotel.country}</Typography>
-                    <Typography variant="body2" >{hotel.postcode}</Typography>
-                    <Typography variant="body2" >{hotel.telephone}</Typography>
-                  </div>
-                </div>
-              </div>
-            </Paper>
-          )
+        +hotel.starRating >= stars && <SingleHotel key={hotel.id} hotel={hotel} />
       )}
     </div>
   );
