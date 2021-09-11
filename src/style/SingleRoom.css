@@ -1,0 +1,46 @@
+.img-placeholder {
+    max-width: 400px;
+    width: 100%;
+    max-height: 450px;
+    height: 100%;
+}
+
+.room-container {
+    width: 95%;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.room-header {
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.room-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.room-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.room-occupancy {
+    margin-top: 15px;
+}
+
+@media only screen and (max-width: 880px) {
+    .room-content {
+        justify-content: center;
+    }
+
+    .room-info {
+        width: 100%;
+        margin-top: 15px;
+    }
+}

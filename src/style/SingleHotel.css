@@ -1,0 +1,72 @@
+.hotel-container {
+  width: 95%;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.link:hover {
+  color: grey;
+}
+
+.hotel-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.hotel-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.hotel-info {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hotel-contacts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 15px;
+}
+
+.hotels-poster-container {
+  width: 100%;
+  background-color: rgba(136, 136, 136, 0.404);
+  border-radius: 10px;
+}
+
+.hotels-poster {
+  font-size: 70px;
+  text-align: center;
+  color: #999;
+  margin: 30px;
+}
+
+@media only screen and (max-width: 880px) {
+  .hotel-content {
+    justify-content: center;
+  }
+
+  .hotel-info {
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .hotels-poster {
+    font-size: 35px;
+  }
+}
