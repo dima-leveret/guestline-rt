@@ -11,7 +11,7 @@
     align-self: flex-start;
 }
 
-.filter {
+.rooms-filter {
     display: flex;
     align-items: center;
     margin: 10px 10px 30px 10px;
@@ -64,6 +64,20 @@
     margin-top: 15px;
 }
 
+.rooms-poster-container {
+    width: 100%;
+    background-color: rgba(136, 136, 136, 0.404);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.rooms-poster{
+    font-size: 70px;
+    text-align: center;
+    color: #999;
+    margin: 30px;
+}
+
 @media only screen and (max-width: 880px) {
     .room-content {
         justify-content: center;
@@ -72,5 +86,9 @@
     .room-info {
         width: 100%;
         margin-top: 15px;
+    }
+
+    .rooms-poster {
+        font-size: 35px;
     }
 }

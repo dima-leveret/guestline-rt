@@ -10,7 +10,7 @@ const App: React.FC = () => {
     <div className="App">
       <Switch>
         <Route exact path="/" component={HotelsList} />
-        <Route path="/selected-hotel/:hotelId" component={SelectedHotel} />
+        <Route path="/selected-hotel/:hotelName/:hotelId" component={SelectedHotel} />
         <Redirect to="/" />
       </Switch>
     </div>

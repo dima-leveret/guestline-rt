@@ -25,7 +25,8 @@ const SelectedHotel: React.FC = () => {
   );
   const { fetchHotelData } = useActions();
 
-  const { hotelId }: { hotelId: string } = useParams();
+  const { hotelName,  hotelId }: { hotelName: string, hotelId: string } = useParams();
+  
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -111,14 +112,22 @@ const SelectedHotel: React.FC = () => {
 
   return (
     <div className="container" >
+
+      <div className="rooms-poster-container" > 
+        <h1 className="rooms-poster" > {hotelName} ROOMS </h1>
+      </div>
+
       <Button 
         variant="contained" 
         color="default" 
         className="btn-back" 
         startIcon={<HomeIcon/>} 
-        onClick={goBack}>Back to main</Button>
+        onClick={goBack}
+      >
+        Back to main
+      </Button>
 
-      <Paper elevation={5} className="filter" >
+      <Paper elevation={5} className="rooms-filter" >
         <div>
           <span>Adults</span>
           <IconButton onClick={removeAdult}>
@@ -183,6 +192,7 @@ const SelectedHotel: React.FC = () => {
                     <Typography> {room.longDescription} </Typography>
                   </div>
                   <div className="room-occupancy" >
+                    <Typography paragraph variant="button" >OCCUPANCY:</Typography>
                     <Typography>Max adults: {room.occupancy.maxAdults}</Typography>
                     <Typography>Max children: {room.occupancy.maxChildren}</Typography>
                   </div>

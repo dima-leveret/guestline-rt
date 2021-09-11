@@ -6,10 +6,10 @@
     height: auto;
 }
 
-.filter {
+.hotels-filter {
     display: flex;
     align-items: center;
-    margin: 10px 10px 30px 10px;
+    margin: 30px 10px;
     padding: 10px;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -73,6 +73,19 @@
     margin-top: 15px;
 }
 
+.hotels-poster-container {
+    width: 100%;
+    background-color: rgba(136, 136, 136, 0.404);
+    border-radius: 10px;
+}
+
+.hotels-poster {
+    font-size: 70px;
+    text-align: center;
+    color: #999;
+    margin: 30px;
+}
+
 @media only screen and (max-width: 880px) {
     .hotel-content {
         justify-content: center;
@@ -81,5 +94,9 @@
     .hotel-info {
         width: 100%;
         margin-top: 15px;
+    }
+
+    .hotels-poster {
+        font-size: 35px;
     }
 }

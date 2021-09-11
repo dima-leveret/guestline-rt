@@ -61,8 +61,12 @@ const HotelsList: React.FC = () => {
   return (
     <div className="container" >
       {isLoading &&  <LinearProgress /> }
-      
-      <Paper elevation={5} className="filter" >
+
+      <div className="hotels-poster-container" > 
+        <h1 className="hotels-poster" > GUESTLINE HOTELS </h1>
+      </div>
+
+      <Paper elevation={5} className="hotels-filter" >
         <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
 
         <div className="stars-container" >
@@ -103,7 +107,7 @@ const HotelsList: React.FC = () => {
           +hotel.starRating >= stars && (
             <Paper elevation={7} className="hotel-container" key={hotel.id}>
               <div className="hotel-header" >
-                <NavLink className="link" to={`/selected-hotel/${hotel.id}`}>
+                <NavLink className="link" to={`/selected-hotel/${hotel.name}/${hotel.id}`}>
                   <Typography display="block" variant="h5" >{hotel.name}</Typography>
                 </NavLink>
                 <Rating readOnly value={Number(hotel.starRating)} />
