@@ -1,7 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+
+import Placeholder from "../img/Placeholder.png"
+import Carousel from "./ui-components/Carousel";
+import Accordion from "../components/ui-components/Accordion"
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import SearchIcon from '@material-ui/icons/Search';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+
+import "../style/SelectedHotel.css"
+import { Typography } from "@material-ui/core";
 
 const SelectedHotel: React.FC = () => {
   const { hotelRoomsData, isLoading, error } = useTypedSelector(
@@ -9,7 +25,8 @@ const SelectedHotel: React.FC = () => {
   );
   const { fetchHotelData } = useActions();
 
-  const { hotelId }: { hotelId: string } = useParams();
+  const { hotelName,  hotelId }: { hotelName: string, hotelId: string } = useParams();
+  
 
   const [adults, setAdults] = useState(0);
   const [children, setChildren] = useState(0);
@@ -28,7 +45,10 @@ const SelectedHotel: React.FC = () => {
   };
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <div >
+      <LinearProgress />
+      <LinearProgress color="secondary" />
+    </div>;
   }
   if (error) {
     return <h2>{error}</h2>;
@@ -91,52 +111,96 @@ const SelectedHotel: React.FC = () => {
   };
 
   return (
-    <div>
-      <button onClick={goBack}>Back to main</button>
+    <div className="container" >
 
-      <div>
+      <div className="rooms-poster-container" > 
+        <h1 className="rooms-poster" > {hotelName} ROOMS </h1>
+      </div>
+
+      <Button 
+        variant="contained" 
+        color="default" 
+        className="btn-back" 
+        startIcon={<HomeIcon/>} 
+        onClick={goBack}
+      >
+        Back to main
+      </Button>
+
+      <Paper elevation={5} className="rooms-filter" >
         <div>
           <span>Adults</span>
-          <button onClick={addAdult}>+</button>
+          <IconButton onClick={removeAdult}>
+            <RemoveCircleOutlineIcon />
+          </IconButton>
           {adults}
-          <button onClick={removeAdult}>-</button>
+          <IconButton color="primary" onClick={addAdult} >
+            <AddCircleOutlineIcon color="primary" />
+          </IconButton>
         </div>
 
         <div>
           <span>Children</span>
-          <button onClick={addChildren}>+</button>
+          <IconButton  onClick={removeChildren}>
+            <RemoveCircleOutlineIcon />
+          </IconButton>
           {children}
-          <button onClick={removeChildren}>-</button>
+          <IconButton color="primary" onClick={addChildren}>
+            <AddCircleOutlineIcon color="primary" />
+          </IconButton>
         </div>
 
-        <button onClick={searchRoom}>SAERCH ROOM</button>
-        <button onClick={reset}>RESET</button>
-      </div>
+        <div className="rooms-btn-container" > 
+          <Button
+            endIcon={<SearchIcon/>}  
+            size="small"
+            color="primary"
+            onClick={searchRoom}
+          >
+            FILTER ROOMS
+          </Button>
+          <Button 
+            endIcon={<RotateLeftIcon/>}
+            size="small"
+            onClick={reset}
+          >
+            RESET
+          </Button>
+        </div>
+        
+      </Paper>
 
       {hotelRoomsData.map(
-        (room: any) =>
+        (room: any ) =>
           room.occupancy.maxAdults >= adultsValue &&
           room.occupancy.maxChildren >= childrenValue && (
-            <div key={room.id}>
-              <p>{room.name}</p>
-              <p> Max adults: {room.occupancy.maxAdults}</p>
-              <p> Max children: {room.occupancy.maxChildren}</p>
-              <p> Long description: {room.longDescription}</p>
-              <div>
+            <Paper elevation={6} key={room.id} className="room-container" >
+              
+              <Typography className="room-header" variant="h6" >{room.name}</Typography>
+
+              <div className="room-content" >
                 {room.images.length === 0
                 ?
-                <h3>no images</h3>
+                <img className="img-placeholder" src={Placeholder} alt="img-placeholder" />
                 :
-                room.images.map((image: any) => (
-                  <img
-                    style={{ width: "100px" }}
-                    key={image.url}
-                    src={image.url}
-                    alt="room-images"
-                  />
-                ))}
+                <Carousel images={room.images} />
+                }
+
+                <div className="room-info" >
+                  <div className="room-description" >
+                    <Typography paragraph variant="h6" > ABOUT ROOM: </Typography>
+                    <Typography> {room.longDescription} </Typography>
+                  </div>
+                  <div className="room-occupancy" >
+                    <Typography paragraph variant="button" >OCCUPANCY:</Typography>
+                    <Typography>Max adults: {room.occupancy.maxAdults}</Typography>
+                    <Typography>Max children: {room.occupancy.maxChildren}</Typography>
+                  </div>
+                </div>
+
+                <Accordion facilities={room.facilities} />
               </div>
-            </div>
+            </Paper>
           )
       )}
     </div>

@@ -1,7 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { NavLink } from "react-router-dom";
+
+import "../style/HotelsList.css"
+
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import RemoveIcon from '@material-ui/icons/Remove';
+import Button from '@material-ui/core/Button';
+import SearchIcon from '@material-ui/icons/Search';
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import Carousel from "./ui-components/Carousel";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
+import Placeholder from "../img/Placeholder.png"
 
 const HotelsList: React.FC = () => {
   const { hotels, isLoading, error } = useTypedSelector(
@@ -17,9 +33,6 @@ const HotelsList: React.FC = () => {
     fetchHotels();
   }, [stars]);
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
   if (error) {
     return <h2>{error}</h2>;
   }
@@ -46,35 +59,84 @@ const HotelsList: React.FC = () => {
   };
 
   return (
-    <div>
-      <div>
-        <span>STARS</span>
-        <button onClick={addStar}>+</button>
-        {starRating}
-        <button onClick={removeStar}>-</button>
-        <button onClick={searchHotel}>SAERCH HOTEL</button>
-        <button onClick={reset}>RESET</button>
+    <div className="container" >
+      {isLoading &&  <LinearProgress /> }
+
+      <div className="hotels-poster-container" > 
+        <h1 className="hotels-poster" > GUESTLINE HOTELS </h1>
       </div>
-      {hotels.map(
-        (hotel) =>
-          Number(hotel.starRating) >= stars && (
-            <div key={hotel.id}>
-              <NavLink to={`/selected-hotel/${hotel.id}`}>
-                <p>{hotel.name}</p>
-                <p>{hotel.address1}</p>
-              </NavLink>
-              <span>{hotel.starRating}</span>
-              <div>
-                {hotel.images.map((image: any) => (
-                  <img
-                    style={{ width: "100px" }}
-                    key={image.url}
-                    src={image.url}
-                    alt="hotel-img"
-                  />
-                ))}
+
+      <Paper elevation={5} className="hotels-filter" >
+        <Typography align="center" display="block" variant="h6" >Select the nubmer of hotel stars</Typography>
+
+        <div className="stars-container" >
+          <IconButton color="secondary" size='medium' onClick={removeStar}>
+            <RemoveIcon fontSize="medium" />
+          </IconButton>
+
+          <Rating readOnly value={starRating} />
+
+          <IconButton color="primary" size='medium' onClick={addStar}>
+            <AddIcon fontSize="medium" />
+          </IconButton>
+        </div>
+        
+        <div className="hotels-btn-container">
+          <Button 
+            size="small"
+            color="primary" 
+            endIcon={<SearchIcon/>} 
+            variant="contained" 
+            onClick={searchHotel}
+            >
+              FILTER HOTELS
+          </Button>
+          <Button
+            size="small"
+            color="inherit"
+            endIcon={<RotateLeftIcon/>} 
+            variant="outlined" 
+            onClick={reset}
+            >
+              RESET
+          </Button>
+        </div>
+      </Paper>
+
+      {hotels.map((hotel) =>
+          +hotel.starRating >= stars && (
+            <Paper elevation={7} className="hotel-container" key={hotel.id}>
+              <div className="hotel-header" >
+                <NavLink className="link" to={`/selected-hotel/${hotel.name}/${hotel.id}`}>
+                  <Typography display="block" variant="h5" >{hotel.name}</Typography>
+                </NavLink>
+                <Rating readOnly value={Number(hotel.starRating)} />
               </div>
-            </div>
+              
+              <div className="hotel-content" >
+                {hotel.images.length === 0
+                  ?
+                  <img className="img-placeholder" src={Placeholder} alt="img-placeholder" />
+                  :
+                  <Carousel images = {hotel.images} />
+                }
+
+                <div className="hotel-info" >
+                  <div className="hotel-description" >
+                    <Typography paragraph variant="h6" >ABOUT HOTEL:</Typography>
+                    <Typography variant="body1" >{hotel.description}</Typography>
+                  </div>
+                  <div className="hotel-contacts" >
+                    <Typography paragraph variant="button" >Contacts:</Typography>
+                    <Typography variant="body2" >{hotel.address1}</Typography>
+                    <Typography variant="body2" >{hotel.town}</Typography>
+                    <Typography variant="body2" >{hotel.country}</Typography>
+                    <Typography variant="body2" >{hotel.postcode}</Typography>
+                    <Typography variant="body2" >{hotel.telephone}</Typography>
+                  </div>
+                </div>
+              </div>
+            </Paper>
           )
       )}
     </div>
